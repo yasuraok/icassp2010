@@ -9,7 +9,7 @@ and IS-divergence minimization
 http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5496223
 """
 
-import numpy as np
+import sys, numpy as np
 from scipy.linalg import solve
 from scipy.fftpack import fft, ifft
 from fftfilt import fftfilt
@@ -68,6 +68,7 @@ class EstimRev(object):
 
             if int(b / (B/10.)) != int((b+1) / (B/10.)):
                 print "*",
+                sys.stdout.flush()
             
             Y[:, b] = fftfilt(G[:, b], Xb)[0:F]
         print

@@ -7,14 +7,9 @@ $Author::                         $
 Source estimator by using harmonic and inharmonic GMM
 """
 
-import numpy as np
+import sys, numpy as np
 from itertools import izip
 
-setup_args={'options': { 'build_ext': {
-    'compiler': 'mingw32',
-    'include_dirs': [np.get_include()],
-}}}
-import pyximport; pyximport.install(setup_args=setup_args)
 from higmm_core import estim1frame, synth1frame
 
 nfloor = 1e-06 # -120dB noise floor
@@ -86,6 +81,7 @@ class HIGMM(object):
             f0f, ampf, var = self.f0[f,:], self.amp[f,:,:], self.var
             if int(f / (F/10.)) != int((f+1) / (F/10.)):
                 print "*",
+                sys.stdout.flush()
             estim1frame(self.freqs, f0f, ampf, var, AX[f,:], self.param)
         print 
 

@@ -10,7 +10,6 @@ Example of ICASSP 2010
 import numpy as np
 import os.path as osp
 import pylab
-from PyQt4.QtGui import QApplication as QA
 
 from audio import wavio
 from signalproc import higmm, dereverberate
@@ -20,7 +19,6 @@ def exec_estim(conf, wavpath):
     pylab.ion()
     fig = pylab.figure()
     fig.hold(False)
-#    QA.processEvents()
 
 
     fftlength = conf['fftLen']
@@ -46,8 +44,7 @@ def exec_estim(conf, wavpath):
     ax  = fig.add_subplot(2,2,1)
     ax.hold(False)
     ax.imshow(10 * np.log10(PX).T, None, None, 'auto', 'nearest', None, -70, 40, 'lower')
-    ax.figure.canvas.draw()
-    QA.processEvents()
+    pylab.pause(0.0001)
 
     for i in xrange(3):
         srcEstimator.estim(np.abs(Y)**2)
@@ -56,22 +53,19 @@ def exec_estim(conf, wavpath):
         # source model spectra
         ax  = fig.add_subplot(2,2,2)
         ax.imshow(10 * np.log10(abs(PS)).T, None, None, 'auto', 'nearest', None, -70, 40, 'lower')
-        ax.figure.canvas.draw()
-        QA.processEvents()
+        pylab.pause(0.0001)
         
         G, Y = revEstimator.estimAndDerev(X, PS, G)
     
         # reverberation 
         ax  = fig.add_subplot(2,2,3)
-        ax.imshow(20 * np.log10(abs(X - Y)).T, None, None, 'auto', 'nearest', None, -70, 40, 'lower')
-        ax.figure.canvas.draw()
-        QA.processEvents()
+        ax.imshow(20 * np.log10(abs(X - Y) + conf["nfloor"]).T, None, None, 'auto', 'nearest', None, -70, 40, 'lower')
+        pylab.pause(0.0001)
 
         # dereverberated
         ax  = fig.add_subplot(2,2,4)
         ax.imshow(20 * np.log10(abs(Y)).T, None, None, 'auto', 'nearest', None, -70, 40, 'lower')
-        ax.figure.canvas.draw()
-        QA.processEvents()
+        pylab.pause(0.0001)
 
 
     y = ispecgram(Y, fftlength, fs, gaussian, overlap)

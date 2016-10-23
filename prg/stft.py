@@ -67,7 +67,7 @@ def specgram(i_x, fftlength, fs, window, overlap):
     #frmLen = ((tmp/hop + 1) + int(bool(tmp%hop)) if tmp >= 0 else 1)
     frmLen = ((tmp / hop + 1) if tmp >= 0 else 1)
     sgnLen = hop * (frmLen - 1) + fftlength
-    binLen = fftlength / 2.0 + 1
+    binLen = fftlength / 2 + 1
     
     #x = hstack([x, tile(0.0, (sgnLen - x.size))])
     Y = empty((frmLen, binLen), dtype=complex)
