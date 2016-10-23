@@ -1,0 +1,16 @@
+# Python / Cython
+*.pyc
+*.cpp
+*.so
+
+# PyInstaller
+*.spec
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.build
+*.xcodeproj
