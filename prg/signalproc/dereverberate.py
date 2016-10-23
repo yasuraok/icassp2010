@@ -103,7 +103,7 @@ class EstimRev(object):
         Power-domain filtering based on wiener filter
         This suppresses reverberation stronger but makes non-linear noises.
         """
-        if Y == None:
+        if type(Y) == type(None):
             (F, B) = X.shape
             Y = np.empty((F, B), dtype=complex) # dereverberated signal
             for b in range(B):
